@@ -1,0 +1,25 @@
+-- Create a new database
+CREATE DATABASE my_database;
+
+-- Use the newly created database
+USE my_database;
+
+-- Create a table with primary key and foreign key constraints
+CREATE TABLE customers (
+  customer_id INT PRIMARY KEY,
+  customer_name VARCHAR(50),
+  email VARCHAR(100)
+);
+
+CREATE TABLE orders (
+  order_id INT PRIMARY KEY,
+  order_date DATE,
+  customer_id INT,
+  FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+-- Create a view to retrieve specific data from multiple tables
+CREATE VIEW customer_orders AS
+SELECT c.customer_name, o.order_id, o.order_date
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id;
